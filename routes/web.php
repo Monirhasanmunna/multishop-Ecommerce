@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\RoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,5 +30,12 @@ require __DIR__.'/auth.php';
 Route::group(['as'=>'app.','prefix'=>'app','namespace'=>'Backend','middleware'=>['auth','web']],function(){
 
     Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
+
+    Route::group(['as'=>'role.','prefix'=>'role'],function(){
+
+        Route::get('/index',[RoleController::class,'index'])->name('index');
+
+    });
+
     
 });
