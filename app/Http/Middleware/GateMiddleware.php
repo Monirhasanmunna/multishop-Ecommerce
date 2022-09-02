@@ -27,10 +27,11 @@ class GateMiddleware
             foreach($permissions as $permission){
 
                 Gate::define($permission->slug,function(User $user) use ($permission){
-                    return $user->role->permissions()->where('slug',$permission->slug)->first() ? true : false;
+                    return $user->hasPermission($permission->slug);
                 });
             }
         }
         return $next($request);
+        
     }
 }

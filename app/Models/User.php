@@ -23,6 +23,15 @@ class User extends Authenticatable
         'password',
     ];
 
+    public function role()
+    {
+       return $this->belongsTo(Role::class);
+    }
+
+    public function hasPermission($permission): bool
+    {
+       return $this->role->permissions()->where('slug',$permission)->first() ? true : false;
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
