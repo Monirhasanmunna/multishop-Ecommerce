@@ -17,19 +17,19 @@
       Features
     </div>
     
-    <li class="nav-item">
+    <li class="nav-item {{Request::is('app/role*')?'active':''}}">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForm" aria-expanded="true"
         aria-controls="collapseForm">
         <i class="fab fa-fw fa-wpforms"></i>
         <span>Role</span>
       </a>
-      <div id="collapseForm" class="collapse" aria-labelledby="headingForm" data-parent="#accordionSidebar">
+      <div id="collapseForm" class="collapse {{Request::is('app/role*')?'show':''}}" aria-labelledby="headingForm" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded " style="margin-bottom: 3px; margin-top:4px;">
-          <a class="collapse-item" href="{{route('app.role.index')}}" style="padding-top: 2px; padding-bottom:2px;">List</a>
+          <a class="collapse-item" {{Request::is('app/role/index')?'active':''}} href="{{route('app.role.index')}}" style="padding-top: 2px; padding-bottom:2px;">List</a>
         </div>
         
         <div class="bg-white py-2 collapse-inner rounded custom_style"  style="margin-bottom: 3px;">
-          <a class="collapse-item" href="{{route('app.role.create')}}" style="padding-top: 2px; padding-bottom:2px;">Add New</a>
+          <a class="collapse-item" {{Request::is('app/role/create')?'active':''}} href="{{route('app.role.create')}}" style="padding-top: 2px; padding-bottom:2px;">Add New</a>
         </div>
       </div>
     </li>

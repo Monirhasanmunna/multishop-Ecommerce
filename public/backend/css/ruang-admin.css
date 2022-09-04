@@ -636,8 +636,9 @@ a:focus {
   display: inline
 }
 
+
 .sidebar .nav-item.active .nav-link {
-  font-weight: 800
+  font-weight: 800;
 }
 
 .sidebar .nav-item .nav-link[data-toggle=collapse]::after {
