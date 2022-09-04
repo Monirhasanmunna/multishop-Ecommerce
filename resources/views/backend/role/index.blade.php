@@ -3,122 +3,61 @@
 @section('content')
 <div class="container-fluid" id="container-wrapper">
     <div class="d-sm-flex align-items-center justify-content-between mb-2">
-      <h1 class="h3 mb-0 text-gray-800">Roles</h1>
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{route('app.dashboard')}}">Home</a></li>
-        <li class="breadcrumb-item">Roles</li>
-        <li class="breadcrumb-item active" aria-current="page">List</li>
-      </ol>
+        <h1 class="h4 mb-0 text-primary"><i class="fa-solid fa-circle-check"></i>Roles</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{route('app.dashboard')}}">Home</a></li>
+            <li class="breadcrumb-item">Roles</li>
+            <li class="breadcrumb-item active" aria-current="page">List</li>
+        </ol>
     </div>
     <!-- Row -->
     <div class="row">
-      <!-- DataTable with Hover -->
-      <div class="col-lg-12">
-        <div class="card mb-4">
-          <div class="table-responsive p-3">
-            <div id="dataTableHover_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="dataTableHover_length"><label>Show <select name="dataTableHover_length" aria-controls="dataTableHover" class="custom-select custom-select-sm form-control form-control-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-12 col-md-6"><div id="dataTableHover_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="dataTableHover"></label></div></div></div><div class="row"><div class="col-sm-12"><table class="table align-items-center table-flush table-hover dataTable" id="dataTableHover" role="grid" aria-describedby="dataTableHover_info">
-              <thead class="thead-light">
-                <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="dataTableHover" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 181.812px;">Name</th><th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 285.6px;">Position</th><th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 135.5px;">Office</th><th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 53.525px;">Age</th><th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 118.475px;">Start date</th><th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 116.287px;">Salary</th></tr>
-              </thead>
-              <tfoot>
-                <tr><th rowspan="1" colspan="1">Name</th><th rowspan="1" colspan="1">Position</th><th rowspan="1" colspan="1">Office</th><th rowspan="1" colspan="1">Age</th><th rowspan="1" colspan="1">Start date</th><th rowspan="1" colspan="1">Salary</th></tr>
-              </tfoot>
-              <tbody>
-
-              <tr role="row" class="odd">
-                  <td class="sorting_1">Airi Satou</td>
-                  <td>Accountant</td>
-                  <td>Tokyo</td>
-                  <td>33</td>
-                  <td>2008/11/28</td>
-                  <td>$162,700</td>
-                </tr><tr role="row" class="even">
-                  <td class="sorting_1">Angelica Ramos</td>
-                  <td>Chief Executive Officer (CEO)</td>
-                  <td>London</td>
-                  <td>47</td>
-                  <td>2009/10/09</td>
-                  <td>$1,200,000</td>
-                </tr><tr role="row" class="odd">
-                  <td class="sorting_1">Ashton Cox</td>
-                  <td>Junior Technical Author</td>
-                  <td>San Francisco</td>
-                  <td>66</td>
-                  <td>2009/01/12</td>
-                  <td>$86,000</td>
-                </tr><tr role="row" class="even">
-                  <td class="sorting_1">Bradley Greer</td>
-                  <td>Software Engineer</td>
-                  <td>London</td>
-                  <td>41</td>
-                  <td>2012/10/13</td>
-                  <td>$132,000</td>
-                </tr><tr role="row" class="odd">
-                  <td class="sorting_1">Brenden Wagner</td>
-                  <td>Software Engineer</td>
-                  <td>San Francisco</td>
-                  <td>28</td>
-                  <td>2011/06/07</td>
-                  <td>$206,850</td>
-                </tr><tr role="row" class="even">
-                  <td class="sorting_1">Brielle Williamson</td>
-                  <td>Integration Specialist</td>
-                  <td>New York</td>
-                  <td>61</td>
-                  <td>2012/12/02</td>
-                  <td>$372,000</td>
-                </tr><tr role="row" class="odd">
-                  <td class="sorting_1">Bruno Nash</td>
-                  <td>Software Engineer</td>
-                  <td>London</td>
-                  <td>38</td>
-                  <td>2011/05/03</td>
-                  <td>$163,500</td>
-                </tr><tr role="row" class="even">
-                  <td class="sorting_1">Caesar Vance</td>
-                  <td>Pre-Sales Support</td>
-                  <td>New York</td>
-                  <td>21</td>
-                  <td>2011/12/12</td>
-                  <td>$106,450</td>
-                </tr><tr role="row" class="odd">
-                  <td class="sorting_1">Cara Stevens</td>
-                  <td>Sales Assistant</td>
-                  <td>New York</td>
-                  <td>46</td>
-                  <td>2011/12/06</td>
-                  <td>$145,600</td>
-                </tr><tr role="row" class="even">
-                  <td class="sorting_1">Cedric Kelly</td>
-                  <td>Senior Javascript Developer</td>
-                  <td>Edinburgh</td>
-                  <td>22</td>
-                  <td>2012/03/29</td>
-                  <td>$433,060</td>
-                </tr></tbody>
-            </table></div></div><div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="dataTableHover_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="dataTableHover_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="dataTableHover_previous"><a href="#" aria-controls="dataTableHover" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="dataTableHover" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="dataTableHover" data-dt-idx="2" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item "><a href="#" aria-controls="dataTableHover" data-dt-idx="3" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="dataTableHover" data-dt-idx="4" tabindex="0" class="page-link">4</a></li><li class="paginate_button page-item "><a href="#" aria-controls="dataTableHover" data-dt-idx="5" tabindex="0" class="page-link">5</a></li><li class="paginate_button page-item "><a href="#" aria-controls="dataTableHover" data-dt-idx="6" tabindex="0" class="page-link">6</a></li><li class="paginate_button page-item next" id="dataTableHover_next"><a href="#" aria-controls="dataTableHover" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li></ul></div></div></div></div>
-          </div>
+        <!-- DataTable with Hover -->
+        <div class="col-lg-12">
+            <div class="card mb-4">
+                <div class="table-responsive p-3">
+                    <div id="dataTableHover_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table align-items-center table-flush table-hover dataTable"id="dataTableHover" role="grid" aria-describedby="dataTableHover_info">
+                                    <thead class="thead-light">
+                                        <tr role="row" class="text-center">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="dataTableHover"rowspan="1" colspan="1" aria-sort="ascending"aria-label="Name: activate to sort column descending">SL</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Position: activate to sort column ascending">Name</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Office: activate to sort column ascending">Slug</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Age: activate to sort column ascending">Permission</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Start date: activate to sort column ascending">Joined At</th>
+                                            <th class="sorting " tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Salary: activate to sort column ascending">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                      @foreach ($roles as $key=>$role)
+                                        <tr role="row" class="odd text-center">
+                                            <td class="sorting_1">{{$key+1}}</td>
+                                            <td>{{$role->name}}</td>
+                                            <td>{{$role->slug}}</td>
+                                            <td><span class="badge badge-primary">{{$role->permissions->count()}}</span></td>
+                                            <td>{{$role->created_at->diffForHumans()}}/11/28</td>
+                                            <td>
+                                                <a class="btn-sm btn-primary" href="{{Route('app.role.edit',$role->id)}}"><i class="fa fa-pen-to-square"></i></a>
+                                                @if($role->deletable == true || Auth::user()->name == 'Admin')
+                                                <a class="btn-sm btn-danger" href="{{Route('app.role.delete',$role->id)}}"><i class="fa-solid fa-trash"></i></a> 
+                                                @endif
+                                                
+                                            </td>
+                                        </tr>
+                                      @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
     <!--Row-->
 
-    <!-- Modal Logout -->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelLogout" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-body">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-            </button>
-            <h5>Are you sure you want to logout?</h5>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
-            <a href="login.html" class="btn btn-primary">Logout</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    @include('layouts.logoutmodal')
+</div>
 @endsection

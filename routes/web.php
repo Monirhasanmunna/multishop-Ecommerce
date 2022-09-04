@@ -19,10 +19,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
 require __DIR__.'/auth.php';
 
 
@@ -34,7 +30,11 @@ Route::group(['as'=>'app.','prefix'=>'app','namespace'=>'Backend','middleware'=>
     Route::group(['as'=>'role.','prefix'=>'role'],function(){
 
         Route::get('/index',[RoleController::class,'index'])->name('index');
-
+        Route::get('/create',[RoleController::class,'create'])->name('create');
+        Route::post('/store',[RoleController::class,'store'])->name('store');
+        Route::get('/edit/{id}',[RoleController::class,'edit'])->name('edit');
+        Route::put('/update/{id}',[RoleController::class,'update'])->name('update');
+        Route::get('/delete/{id}',[RoleController::class,'destroy'])->name('delete');
     });
 
     

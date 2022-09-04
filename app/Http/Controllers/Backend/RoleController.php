@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Module;
+use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
+
 
 class RoleController extends Controller
 {
@@ -14,7 +19,9 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return view('backend.role.index');
+        Gate::authorize('app.role.index');
+        $roles = Role::all();
+        return view('backend.role.index',compact('roles'));
     }
 
     /**
@@ -23,8 +30,10 @@ class RoleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    {   
+        Gate::authorize('app.role.create');
+        $modules = Module::all();
+        return view('backend.role.create',compact('modules'));
     }
 
     /**
@@ -35,7 +44,19 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'  => 'required|unique:roles',
+            'description'   => 'sometimes',
+        ]);
+
+        Role::create([
+            'name'  => $request->name,
+            'description'   => $request->description,
+            'slug'  => Str::slug($request->name),
+        ])->permissions()->sync($request->input('permission'));
+
+        notify()->success("Role Created");
+        return redirect()->route('app.role.index');
     }
 
     /**
@@ -45,8 +66,8 @@ class RoleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
+    { 
+
     }
 
     /**
@@ -57,7 +78,10 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        //
+        Gate::authorize('app.role.edit');
+        $role = Role::findOrfail($id);
+        $modules = Module::all();
+        return view('backend.role.create',compact('modules','role'));
     }
 
     /**
@@ -69,7 +93,24 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //return $request->all();
+        $request->validate([
+            'name'  => 'required',
+            'description'   => 'sometimes',
+        ]);
+
+        $role = Role::findOrfail($id);
+
+        $role->update([
+            'name'  => $request->name,
+            'description'   => $request->description,
+            'slug'  => Str::slug($request->name),
+        ]);
+
+        $role->permissions()->sync($request->input('permission'));
+       
+        notify()->success("Role Updated");
+        return redirect()->route('app.role.index');
     }
 
     /**
@@ -80,6 +121,15 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Gate::authorize('app.role.delete');
+        $role = Role::findOrfail($id);
+        if($role->deletable == true){
+            $role->delete();
+            notify()->success("Role Deleted");
+        }else{
+            notify()->error("You Can Not Delete System Role");
+        }
+
+        return redirect()->back();
     }
 }

@@ -24,12 +24,14 @@
         <span>Role</span>
       </a>
       <div id="collapseForm" class="collapse" aria-labelledby="headingForm" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          <a class="collapse-item" href="{{route('app.role.index')}}">List</a>
+        <div class="bg-white py-2 collapse-inner rounded " style="margin-bottom: 3px; margin-top:4px;">
+          <a class="collapse-item" href="{{route('app.role.index')}}" style="padding-top: 2px; padding-bottom:2px;">List</a>
+        </div>
+        
+        <div class="bg-white py-2 collapse-inner rounded custom_style"  style="margin-bottom: 3px;">
+          <a class="collapse-item" href="{{route('app.role.create')}}" style="padding-top: 2px; padding-bottom:2px;">Add New</a>
         </div>
       </div>
     </li>
-    <hr class="sidebar-divider">
-    <div class="version" id="version-ruangadmin"></div>
   </ul>
   <!-- Sidebar -->
