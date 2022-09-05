@@ -18,18 +18,35 @@
     </div>
     
     <li class="nav-item {{Request::is('app/role*')?'active':''}}">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForm" aria-expanded="true"
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRoleForm" aria-expanded="true"
         aria-controls="collapseForm">
-        <i class="fab fa-fw fa-wpforms"></i>
+        <i class="fa-sharp fa-solid fa-person"></i>
         <span>Role</span>
       </a>
-      <div id="collapseForm" class="collapse {{Request::is('app/role*')?'show':''}}" aria-labelledby="headingForm" data-parent="#accordionSidebar">
+      <div id="collapseRoleForm" class="collapse {{Request::is('app/role*')?'show':''}}" aria-labelledby="headingForm" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded " style="margin-bottom: 3px; margin-top:4px;">
-          <a class="collapse-item" {{Request::is('app/role/index')?'active':''}} href="{{route('app.role.index')}}" style="padding-top: 2px; padding-bottom:2px;">List</a>
+          <a class="collapse-item" {{Request::is('app/role/index')?'active':''}} href="{{route('app.role.index')}}" style="padding-top: 2px; padding-bottom:2px;"><i class="fa-solid fa-list"></i><span class="pl-1">List</span></a>
         </div>
         
         <div class="bg-white py-2 collapse-inner rounded custom_style"  style="margin-bottom: 3px;">
-          <a class="collapse-item" {{Request::is('app/role/create')?'active':''}} href="{{route('app.role.create')}}" style="padding-top: 2px; padding-bottom:2px;">Add New</a>
+          <a class="collapse-item" {{Request::is('app/role/create')?'active':''}} href="{{route('app.role.create')}}" style="padding-top: 2px; padding-bottom:2px;"><i class="fa-solid fa-circle-plus"></i><span class="pl-1">Add New</span></a>
+        </div>
+      </div>
+    </li>
+
+    <li class="nav-item {{Request::is('app/user*')?'active':''}}">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUserForm" aria-expanded="true"
+        aria-controls="collapseForm">
+        <i class="fa-solid fa-user"></i>
+        <span>User</span>
+      </a>
+      <div id="collapseUserForm" class="collapse {{Request::is('app/user*')?'show':''}}" aria-labelledby="headingForm" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded " style="margin-bottom: 3px; margin-top:4px;">
+          <a class="collapse-item" {{Request::is('app/user/index')?'active':''}} href="{{route('app.user.index')}}" style="padding-top: 2px; padding-bottom:2px;"><i class="fa-solid fa-list"></i><span class="pl-1">List</span></a>
+        </div>
+        
+        <div class="bg-white py-2 collapse-inner rounded custom_style"  style="margin-bottom: 3px;">
+          <a class="collapse-item" {{Request::is('app/user/create')?'active':''}} href="{{route('app.user.create')}}" style="padding-top: 2px; padding-bottom:2px;"><i class="fa-solid fa-circle-plus"></i><span class="pl-1">Add New</span></a>
         </div>
       </div>
     </li>

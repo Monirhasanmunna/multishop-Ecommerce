@@ -68,7 +68,7 @@ class PermissionSeeder extends Seeder
 
             'module_id' => $usersModule->id,
             'name' => 'Access User',
-            'slug' => 'app.users.index'
+            'slug' => 'app.user.index'
 
         ]);
 
@@ -77,7 +77,7 @@ class PermissionSeeder extends Seeder
 
             'module_id' => $usersModule->id,
             'name' => 'Create User',
-            'slug' => 'app.users.create'
+            'slug' => 'app.user.create'
 
         ]);
 
@@ -86,7 +86,7 @@ class PermissionSeeder extends Seeder
 
             'module_id' => $usersModule->id,
             'name' => 'Edit User',
-            'slug' => 'app.users.edit'
+            'slug' => 'app.user.edit'
 
         ]);
 
@@ -95,7 +95,7 @@ class PermissionSeeder extends Seeder
 
             'module_id' => $usersModule->id,
             'name' => 'Delete User',
-            'slug' => 'app.users.delete'
+            'slug' => 'app.user.delete'
 
         ]);
     }
