@@ -51,16 +51,8 @@
                                             <td><span class="badge badge-primary">{{$user->role->name}}</span></td>
                                             <td>{{$user->email}}</td>
                                             <td>
-                                                {{-- @if($user->status == true)
-                                                    <span class="badge badge-primary">Avtive</span>
-                                                @else
-                                                    <span class="badge badge-danger">Deavtive</span>
-                                                @endif --}}
-
                                                 <div class="form-check form-switch">
-                                                    @if($user->role->name != 'Admin' || Auth::user()->role->name == 'Admin')
-                                                    <input class="form-check-input statusBtn" data-id="{{$user->id}}" type="checkbox" role="switch" data-size="small"  data-width="90" data-offstyle="danger" data-toggle="toggle" {{($user->status == true) ? 'checked' : ''}} data-off="Deactive" data-on="Active">
-                                                    @endif
+                                                    <input class="form-check-input statusBtn" data-id="{{$user->id}}" {{Auth::user()->role->name != 'Admin' ? 'disabled' : ''}}  type="checkbox" role="switch" data-size="small"  data-width="90" data-offstyle="danger" data-toggle="toggle" {{($user->status == true) ? 'checked' : ''}} data-off="Deactive" data-on="Active">
                                                 </div>
                                             </td>
                                             <td>
