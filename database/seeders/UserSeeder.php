@@ -21,7 +21,8 @@ class UserSeeder extends Seeder
             'name'      => 'Admin',
             'email'     => 'admin@gmail.com',
             'password'  => bcrypt(11111111),
-            'status'    => true
+            'status'    => true,
+            'deletable' => false
         ]);
 
         User::updateOrcreate([
@@ -29,7 +30,8 @@ class UserSeeder extends Seeder
             'name'      => 'Author',
             'email'     => 'author@gmail.com',
             'password'  => bcrypt(11111111),
-            'status'    => true
+            'status'    => true,
+            'deletable' => false
         ]);
 
         User::updateOrcreate([
@@ -37,7 +39,8 @@ class UserSeeder extends Seeder
             'name'      => 'User',
             'email'     => 'user@gmail.com',
             'password'  => bcrypt(11111111),
-            'status'    => true
+            'status'    => true,
+            'deletable' => false
         ]);
     }
 }

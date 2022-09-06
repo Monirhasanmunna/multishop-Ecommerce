@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Traits\Filesaver;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -92,7 +93,8 @@ class UserController extends Controller
     {
         Gate::authorize('app.user.edit');
         $user = User::findOrfail($id);
-        return redirect()->route('app.user.create',compact('user'));
+        $roles = Role::all();
+        return view('backend.user.create',compact('user','roles'));
     }
 
     /**
@@ -104,7 +106,31 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'  => 'required',
+            'email' => 'required',
+            'password'=>'sometimes',
+            'role'    =>'required',
+            'image'  => 'sometimes|mimes:jpg,png|max:2048',
+        ]);
+
+        $user = User::findOrfail($id);
+        $user->update([
+            'role_id'   => $request->role,
+            'name'      => $request->name,
+            'email'     => $request->email,
+            'password'  => bcrypt(isset($request->password) ? $request->password : $user->password),
+            'status'    => $request->filled('status'),
+            'avatar'    => $request->avatar,
+        ]);
+
+        // <!-- update user image -->
+        if($request->file('image')){
+            $this->upload_file($request->image, $user, 'image', 'user',250,250);
+        }
+
+        notify()->success("User Updated");
+        return redirect()->route('app.user.index');
     }
 
     /**
@@ -115,6 +141,13 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Gate::authorize('app.user.delete');
+        $user = User::findOrfail($id);
+        if(file_exists($user->image) && $user->image != '' && $user->deletable == true && Auth::user()->id != $user->id){
+            
+            unlink($user->image);
+            $user->delete();
+            return response()->json($user);
+        }
     }
 }

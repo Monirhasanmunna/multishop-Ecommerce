@@ -35,7 +35,7 @@ Route::group(['as'=>'app.','prefix'=>'app','namespace'=>'Backend','middleware'=>
         Route::post('/store',[RoleController::class,'store'])->name('store');
         Route::get('/edit/{id}',[RoleController::class,'edit'])->name('edit');
         Route::put('/update/{id}',[RoleController::class,'update'])->name('update');
-        Route::get('/delete/{id}',[RoleController::class,'destroy'])->name('delete');
+        Route::delete('/delete/{id}',[RoleController::class,'destroy'])->name('delete');
     });
 
 
@@ -46,7 +46,7 @@ Route::group(['as'=>'app.','prefix'=>'app','namespace'=>'Backend','middleware'=>
         Route::post('/store',[UserController::class,'store'])->name('store');
         Route::get('/edit/{id}',[UserController::class,'edit'])->name('edit');
         Route::put('/update/{id}',[UserController::class,'update'])->name('update');
-        Route::get('/delete/{id}',[UserController::class,'destroy'])->name('delete');
+        Route::delete('/delete/{id}',[UserController::class,'destroy'])->name('delete');
     });
 
     

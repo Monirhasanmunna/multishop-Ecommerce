@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <link href="{{asset('backend/img/logo/logo.png')}}" rel="icon">
   <title>RuangAdmin - Dashboard</title>
   <link href="{{asset('backend/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
@@ -58,6 +59,7 @@
   <script src="{{asset('backend/vendor/datatables/jquery.dataTables.min.js')}}"></script>
   <script src="{{asset('backend/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script> 
   <script src="{{ asset('js/iziToast.js') }}"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   @include('vendor.lara-izitoast.toast')
   <script>
     $(document).ready(function () {

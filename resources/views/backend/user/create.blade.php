@@ -27,7 +27,7 @@
     <div class="row">
         <div class="col-12">
             <div class="main-card mb-3 card">
-                <form action="{{!isset($user) ? route('app.user.store') : route('app.user.update',[$user->id])}}" method="POST" enctype="multipart/form-data">
+                <form action="{{!isset($user) ? route('app.user.store') : route('app.user.update',$user->id)}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @if (isset($user))
                         @method('PUT')
@@ -94,7 +94,7 @@
 
                                 <div class="form-group">
                                     <label style="color: #626262;" for="avatar"><strong>Avatar :</strong></label>
-                                    <input class="form-control dropify" id="avatar" data-default-file="{{isset($user) ? asset('storage/user/'.$user->image) : ''}}" name="image" type="file"
+                                    <input class="form-control dropify" id="avatar" data-default-file="{{isset($user) ? asset($user->image) : ''}}" name="image" type="file"
                                     class="@error('avatar') is-invalid @enderror">
 
                                     @error('avatar')

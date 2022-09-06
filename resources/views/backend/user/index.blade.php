@@ -58,7 +58,9 @@
                                             </td>
                                             <td>
                                                 <a class="btn-sm btn-primary" href="{{Route('app.user.edit',$user->id)}}"><i class="fa fa-pen-to-square"></i></a>
-                                                <a class="btn-sm btn-danger" href="{{Route('app.user.delete',$user->id)}}"><i class="fa-solid fa-trash"></i></a> 
+                                                @if ($user->deletable == true)
+                                                    <a class="btn-sm btn-danger" href="javaScript::void(0)" onclick="deleteUser({{$user->id}})"><i class="fa-solid fa-trash"></i></a> 
+                                                @endif
                                             </td>
                                         </tr>
                                       @endforeach
@@ -72,7 +74,59 @@
         </div>
     </div>
     <!--Row-->
-
+    <input hidden id="authId" value="{{Auth::user()->id}}" type="number">
     @include('layouts.logoutmodal')
 </div>
+@endsection
+
+@section('js')
+    
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+
+
+    function deleteUser(id){
+        var authId = $("#authId").val();
+        console.log(authId);
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+            if (result.isConfirmed && authId != id) {
+                Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+                )
+
+                $.ajax({
+                    url     : '/app/user/delete/'+id,
+                    type    : 'Delete',
+                    dataType: 'json',
+                });
+
+                location.reload(true);
+            }else{
+                Swal.fire(
+                'Oops!',
+                'You Can Not Delete Yourself.',
+                'error'
+                )
+            }
+        })
+
+        
+    }
+    
+</script>
 @endsection
