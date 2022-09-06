@@ -133,6 +133,16 @@ class UserController extends Controller
         return redirect()->route('app.user.index');
     }
 
+    public function statusUpdate(Request $request)
+    {
+        $user = User::findOrfail($request->user_id);
+        $user->status = $request->status;
+        $user->save();
+        
+
+        return response()->json($user);
+    }
+
     /**
      * Remove the specified resource from storage.
      *

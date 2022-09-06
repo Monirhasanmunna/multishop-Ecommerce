@@ -16,6 +16,8 @@
   <link href="{{asset('backend/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="{{ asset('css/iziToast.css') }}" rel="stylesheet">
+  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
   @yield('css')
 </head>
 
@@ -60,11 +62,19 @@
   <script src="{{asset('backend/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script> 
   <script src="{{ asset('js/iziToast.js') }}"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
   @include('vendor.lara-izitoast.toast')
   <script>
     $(document).ready(function () {
      // $('#dataTable').DataTable(); // ID From dataTable 
       $('#dataTableHover').DataTable(); // ID From dataTable with Hover
+    });
+
+    $(function() {
+      $('#toggle-two').bootstrapToggle({
+        on: 'Enabled',
+        off: 'Disabled'
+      });
     });
   </script>
 

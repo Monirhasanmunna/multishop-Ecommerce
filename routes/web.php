@@ -46,6 +46,7 @@ Route::group(['as'=>'app.','prefix'=>'app','namespace'=>'Backend','middleware'=>
         Route::post('/store',[UserController::class,'store'])->name('store');
         Route::get('/edit/{id}',[UserController::class,'edit'])->name('edit');
         Route::put('/update/{id}',[UserController::class,'update'])->name('update');
+        Route::get('/status/update',[UserController::class,'statusUpdate'])->name('status.update');
         Route::delete('/delete/{id}',[UserController::class,'destroy'])->name('delete');
     });
 

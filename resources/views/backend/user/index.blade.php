@@ -8,6 +8,7 @@
             padding: 2px;
             border-radius: 50%;
         }
+
     </style>
 @endsection
 @section('content')
@@ -50,11 +51,15 @@
                                             <td><span class="badge badge-primary">{{$user->role->name}}</span></td>
                                             <td>{{$user->email}}</td>
                                             <td>
-                                                @if($user->status == true)
+                                                {{-- @if($user->status == true)
                                                     <span class="badge badge-primary">Avtive</span>
                                                 @else
                                                     <span class="badge badge-danger">Deavtive</span>
-                                                @endif
+                                                @endif --}}
+
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input statusBtn" data-id="{{$user->id}}" type="checkbox" role="switch" data-size="small"  data-width="90" data-offstyle="danger" data-toggle="toggle" {{($user->status == true) ? 'checked' : ''}} data-off="Deactive" data-on="Active">
+                                                </div>
                                             </td>
                                             <td>
                                                 <a class="btn-sm btn-primary" href="{{Route('app.user.edit',$user->id)}}"><i class="fa fa-pen-to-square"></i></a>
@@ -124,9 +129,33 @@
                 )
             }
         })
-
-        
     }
+
+    $(".statusBtn").on('change',function(){
+
+        var status = $(this).prop('checked') == true ? 1 : 0; 
+        var user_id = $(this).data('id'); 
+         
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: '/app/user/status/update',
+            data: {'status': status, 'user_id': user_id},
+            success : function(){
+                Swal.fire({
+                        toast : true,
+                        width : '20em',
+                        timerProgressBar  : true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Status Updated Successfully',
+                        showConfirmButton: false,
+                        timer: 3000,
+                      });
+            }
+        });
+    });
+    
     
 </script>
 @endsection
