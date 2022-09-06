@@ -21,7 +21,7 @@ class UserController extends Controller
     public function index()
     {   
         Gate::authorize('app.user.index');
-        $users = User::orderBy('created_at','DESC')->get();
+        $users = User::all();
         return view('backend.user.index',compact('users'));
     }
 

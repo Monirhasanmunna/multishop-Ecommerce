@@ -58,10 +58,13 @@
                                                 @endif --}}
 
                                                 <div class="form-check form-switch">
+                                                    @if($user->role->name != 'Admin' || Auth::user()->role->name == 'Admin')
                                                     <input class="form-check-input statusBtn" data-id="{{$user->id}}" type="checkbox" role="switch" data-size="small"  data-width="90" data-offstyle="danger" data-toggle="toggle" {{($user->status == true) ? 'checked' : ''}} data-off="Deactive" data-on="Active">
+                                                    @endif
                                                 </div>
                                             </td>
                                             <td>
+                                                
                                                 <a class="btn-sm btn-primary" href="{{Route('app.user.edit',$user->id)}}"><i class="fa fa-pen-to-square"></i></a>
                                                 @if ($user->deletable == true)
                                                     <a class="btn-sm btn-danger" href="javaScript::void(0)" onclick="deleteUser({{$user->id}})"><i class="fa-solid fa-trash"></i></a> 
@@ -107,12 +110,20 @@
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
-            if (result.isConfirmed && authId != id) {
-                Swal.fire(
-                'Deleted!',
-                'Your file has been deleted.',
-                'success'
-                )
+            if (result.isConfirmed) {
+                if(authId == id){
+                    Swal.fire(
+                    'Oops!',
+                    'You Can Not Delete Yourself.',
+                    'error'
+                    )
+                }else{
+                    Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                    )
+                }
 
                 $.ajax({
                     url     : '/app/user/delete/'+id,
@@ -121,12 +132,6 @@
                 });
 
                 location.reload(true);
-            }else{
-                Swal.fire(
-                'Oops!',
-                'You Can Not Delete Yourself.',
-                'error'
-                )
             }
         })
     }
