@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\UserController;
@@ -48,6 +49,17 @@ Route::group(['as'=>'app.','prefix'=>'app','namespace'=>'Backend','middleware'=>
         Route::put('/update/{id}',[UserController::class,'update'])->name('update');
         Route::get('/status/update',[UserController::class,'statusUpdate'])->name('status.update');
         Route::delete('/delete/{id}',[UserController::class,'destroy'])->name('delete');
+    });
+
+
+    Route::group(['as'=>'category.','prefix'=>'category'],function(){
+
+        Route::get('/index',[CategoryController::class,'index'])->name('index');
+        Route::get('/create',[CategoryController::class,'create'])->name('create');
+        Route::post('/store',[CategoryController::class,'store'])->name('store');
+        Route::get('/edit/{id}',[CategoryController::class,'edit'])->name('edit');
+        Route::put('/update/{id}',[CategoryController::class,'update'])->name('update');
+        Route::delete('/delete/{id}',[CategoryController::class,'destroy'])->name('delete');
     });
 
     
