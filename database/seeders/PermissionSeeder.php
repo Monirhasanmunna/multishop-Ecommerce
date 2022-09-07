@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Module;
 use App\Models\Permission;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -96,6 +97,47 @@ class PermissionSeeder extends Seeder
             'module_id' => $usersModule->id,
             'name' => 'Delete User',
             'slug' => 'app.user.delete'
+
+        ]);
+
+         //Category module create
+         $categoryModule = Module::updateOrCreate([
+            'name'=>'Category Management'
+        ]);
+        
+        //user module permissions create
+        Permission::updateOrCreate([
+
+            'module_id' => $categoryModule->id,
+            'name' => 'Access Category',
+            'slug' => 'app.category.index'
+
+        ]);
+
+
+        Permission::updateOrCreate([
+
+            'module_id' => $categoryModule->id,
+            'name' => 'Create Category',
+            'slug' => 'app.category.create'
+
+        ]);
+
+
+        Permission::updateOrCreate([
+
+            'module_id' => $categoryModule->id,
+            'name' => 'Edit Category',
+            'slug' => 'app.category.edit'
+
+        ]);
+
+
+        Permission::updateOrCreate([
+
+            'module_id' => $categoryModule->id,
+            'name' => 'Delete Category',
+            'slug' => 'app.category.delete'
 
         ]);
     }
