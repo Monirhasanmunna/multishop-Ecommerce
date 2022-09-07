@@ -135,6 +135,9 @@ class CategoryController extends Controller
             unlink($category->image);
             $category->delete();
             return response()->json($category);
+        }else{
+            $category->delete();
+            return response()->json($category);
         }
     }
 }
