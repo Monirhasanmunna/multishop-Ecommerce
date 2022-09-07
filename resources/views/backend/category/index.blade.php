@@ -37,7 +37,7 @@
                                             <th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Position: activate to sort column ascending">Image</th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Office: activate to sort column ascending">Name</th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Age: activate to sort column ascending">Sub Categories</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Start date: activate to sort column ascending">Created At</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Start date: activate to sort column ascending">Updated At</th>
                                             <th class="sorting " tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Salary: activate to sort column ascending">Action</th>
                                         </tr>
                                     </thead>
@@ -48,7 +48,7 @@
                                             <td><img class="image" src="{{isset($category->image)? asset($category->image) : asset('storage/defualt/default.png')}}" alt="{{$category->image}}" srcset=""></td>
                                             <td>{{$category->name}}</td>
                                             <td><span class="badge badge-primary">1</span></td>
-                                            <td>{{$category->created_at->diffForHumans()}}</td>
+                                            <td>{{$category->updated_at->diffForHumans()}}</td>
                                             <td>
                                                 <a class="btn-sm btn-primary" href="{{Route('app.category.edit',$category->id)}}"><i class="fa fa-pen-to-square"></i></a>
                                                 <a class="btn-sm btn-danger" href="javaScript::void(0)" onclick="deleteUser({{$category->id}})"><i class="fa-solid fa-trash"></i></a> 
