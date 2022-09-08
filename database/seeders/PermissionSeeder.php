@@ -223,5 +223,47 @@ class PermissionSeeder extends Seeder
             'slug' => 'app.color.delete'
 
         ]);
+
+
+         //Size Module create
+         $sizeModule = Module::updateOrCreate([
+            'name'=>'Size Management'
+        ]);
+        
+        //Size module permissions create
+        Permission::updateOrCreate([
+
+            'module_id' => $sizeModule->id,
+            'name' => 'Access Size',
+            'slug' => 'app.size.index'
+
+        ]);
+
+
+        Permission::updateOrCreate([
+
+            'module_id' => $sizeModule->id,
+            'name' => 'Create Size',
+            'slug' => 'app.size.create'
+
+        ]);
+
+
+        Permission::updateOrCreate([
+
+            'module_id' => $sizeModule->id,
+            'name' => 'Edit Size',
+            'slug' => 'app.size.edit'
+
+        ]);
+
+
+        Permission::updateOrCreate([
+
+            'module_id' => $sizeModule->id,
+            'name' => 'Delete Size',
+            'slug' => 'app.size.delete'
+
+        ]);
     }
 }
