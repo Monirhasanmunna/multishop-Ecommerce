@@ -105,7 +105,7 @@ class PermissionSeeder extends Seeder
             'name'=>'Category Management'
         ]);
         
-        //user module permissions create
+        //category module permissions create
         Permission::updateOrCreate([
 
             'module_id' => $categoryModule->id,
@@ -138,6 +138,47 @@ class PermissionSeeder extends Seeder
             'module_id' => $categoryModule->id,
             'name' => 'Delete Category',
             'slug' => 'app.category.delete'
+
+        ]);
+
+        //Sub category Module create
+        $subCategory = Module::updateOrCreate([
+            'name'=>'Sub Category Management'
+        ]);
+        
+        //user module permissions create
+        Permission::updateOrCreate([
+
+            'module_id' => $subCategory->id,
+            'name' => 'Access Sub Category',
+            'slug' => 'app.subcategory.index'
+
+        ]);
+
+
+        Permission::updateOrCreate([
+
+            'module_id' => $subCategory->id,
+            'name' => 'Create Sub Category',
+            'slug' => 'app.subcategory.create'
+
+        ]);
+
+
+        Permission::updateOrCreate([
+
+            'module_id' => $subCategory->id,
+            'name' => 'Edit Sub Category',
+            'slug' => 'app.subcategory.edit'
+
+        ]);
+
+
+        Permission::updateOrCreate([
+
+            'module_id' => $subCategory->id,
+            'name' => 'Delete Sub Category',
+            'slug' => 'app.subcategory.delete'
 
         ]);
     }

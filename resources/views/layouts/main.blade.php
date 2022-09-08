@@ -19,6 +19,15 @@
   <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
   @yield('css')
+
+<style>
+    .select2-container{
+        width: 100%!important;
+        }
+        .select2-search--dropdown .select2-search__field {
+        width: 98%;
+    }
+</style>
 </head>
 
 <body id="page-top">

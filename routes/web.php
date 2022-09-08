@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\RoleController;
+use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -62,5 +63,15 @@ Route::group(['as'=>'app.','prefix'=>'app','namespace'=>'Backend','middleware'=>
         Route::delete('/delete/{id}',[CategoryController::class,'destroy'])->name('delete');
     });
 
-    
+
+    Route::group(['as'=>'subcategory.','prefix'=>'subcategory'],function(){
+
+        Route::get('/index',[SubCategoryController::class,'index'])->name('index');
+        Route::get('/create',[SubCategoryController::class,'create'])->name('create');
+        Route::post('/store',[SubCategoryController::class,'store'])->name('store');
+        Route::get('/edit/{id}',[SubCategoryController::class,'edit'])->name('edit');
+        Route::put('/update/{id}',[SubCategoryController::class,'update'])->name('update');
+        Route::delete('/delete/{id}',[SubCategoryController::class,'destroy'])->name('delete');
+    });
+
 });

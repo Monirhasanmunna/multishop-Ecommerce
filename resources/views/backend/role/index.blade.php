@@ -37,7 +37,7 @@
                                             <td>{{$role->name}}</td>
                                             <td>{{$role->slug}}</td>
                                             <td><span class="badge badge-primary">{{$role->permissions->count()}}</span></td>
-                                            <td>{{$role->created_at->diffForHumans()}}/11/28</td>
+                                            <td>{{$role->created_at->diffForHumans()}}</td>
                                             <td>
                                                 <a class="btn-sm btn-primary" href="{{Route('app.role.edit',$role->id)}}"><i class="fa fa-pen-to-square"></i></a>
                                                 @if($role->deletable == true || Auth::user()->name == 'Admin')

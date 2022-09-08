@@ -14,10 +14,10 @@
 @section('content')
 <div class="container-fluid" id="container-wrapper">
     <div class="d-sm-flex align-items-center justify-content-between mb-2">
-        <h1 class="h4 mb-0 text-primary"><i class="fa-solid px-1 fa-circle-check"></i>Categories</h1>
+        <h1 class="h4 mb-0 text-primary"><i class="fa-solid px-1 fa-circle-check"></i>Sub Categories</h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{route('app.dashboard')}}">Home</a></li>
-            <li class="breadcrumb-item">Category</li>
+            <li class="breadcrumb-item">Sub Category</li>
             <li class="breadcrumb-item active" aria-current="page">list</li>
         </ol>
     </div>
@@ -36,26 +36,22 @@
                                             <th class="sorting_asc" tabindex="0" aria-controls="dataTableHover"rowspan="1" colspan="1" aria-sort="ascending"aria-label="Name: activate to sort column descending">SL</th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Position: activate to sort column ascending">Image</th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Office: activate to sort column ascending">Name</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Age: activate to sort column ascending">Sub Categories</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Age: activate to sort column ascending">Category</th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Start date: activate to sort column ascending">Updated At</th>
                                             <th class="sorting " tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Salary: activate to sort column ascending">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                      @foreach ($categories as $key=>$category)
+                                      @foreach ($subcategories as $key=>$subcategory)
                                         <tr role="row" class="odd text-center">
                                             <td class="sorting_1">{{$key+1}}</td>
-                                            <td><img class="image" src="{{isset($category->image)? asset($category->image) : asset('storage/defualt/default.png')}}" alt="{{$category->image}}" srcset=""></td>
-                                            <td>{{$category->name}}</td>
+                                            <td><img class="image" src="{{isset($subcategory->image)? asset($subcategory->image) : asset('storage/defualt/default.png')}}" alt="{{$subcategory->image}}" srcset=""></td>
+                                            <td>{{$subcategory->name}}</td>
+                                            <td><span class="badge badge-primary">{{$subcategory->category->name}}</span></td>
+                                            <td>{{$subcategory->updated_at->diffForHumans()}}</td>
                                             <td>
-                                                @foreach ($category->subcategories as $subcategories)
-                                                  <span class="badge badge-primary">{{$subcategories->name}}</span>  
-                                                @endforeach
-                                            </td>
-                                            <td>{{$category->updated_at->diffForHumans()}}</td>
-                                            <td>
-                                                <a class="btn-sm btn-primary" href="{{Route('app.category.edit',$category->id)}}"><i class="fa fa-pen-to-square"></i></a>
-                                                <a class="btn-sm btn-danger" href="javaScript::void(0)" onclick="deleteUser({{$category->id}})"><i class="fa-solid fa-trash"></i></a> 
+                                                <a class="btn-sm btn-primary" href="{{Route('app.subcategory.edit',$subcategory->id)}}"><i class="fa fa-pen-to-square"></i></a>
+                                                <a class="btn-sm btn-danger" href="javaScript::void(0)" onclick="deleteUser({{$subcategory->id}})"><i class="fa-solid fa-trash"></i></a>
                                             </td>
                                         </tr>
                                       @endforeach
@@ -98,11 +94,11 @@
             if (result.isConfirmed) {
                     Swal.fire(
                     'Deleted!',
-                    'Category has been deleted.',
+                    'Sub Category has been deleted.',
                     'success'
                     )
                 $.ajax({
-                    url     : '/app/category/delete/'+id,
+                    url     : '/app/subcategory/delete/'+id,
                     type    : 'Delete',
                     dataType: 'json',
                 });

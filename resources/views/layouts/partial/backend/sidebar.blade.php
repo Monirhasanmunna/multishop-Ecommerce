@@ -72,5 +72,22 @@
         </div>
       </div>
     </li>
+
+    <li class="nav-item {{Request::is('app/subcategory*')?'active':''}}">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSubCategoryForm" aria-expanded="true"
+        aria-controls="collapseForm">
+        <i class="fa-solid fa-list-ol"></i>
+        <span>Sub Category</span>
+      </a>
+      <div id="collapseSubCategoryForm" class="collapse {{Request::is('app/subcategory*')?'show':''}}" aria-labelledby="headingForm" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded " style="margin-bottom: 3px; margin-top:4px;">
+          <a class="collapse-item" {{Request::is('app/subcategory/index')?'active':''}} href="{{route('app.subcategory.index')}}" style="padding-top: 2px; padding-bottom:2px;"><i class="fa-solid fa-list"></i><span class="pl-1">List</span></a>
+        </div>
+        
+        <div class="bg-white py-2 collapse-inner rounded custom_style"  style="margin-bottom: 3px;">
+          <a class="collapse-item" {{Request::is('app/subcategory/create')?'active':''}} href="{{route('app.subcategory.create')}}" style="padding-top: 2px; padding-bottom:2px;"><i class="fa-solid fa-circle-plus"></i><span class="pl-1">Add New</span></a>
+        </div>
+      </div>
+    </li>
   </ul>
   <!-- Sidebar -->
