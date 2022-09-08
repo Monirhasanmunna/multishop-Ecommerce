@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\ColorController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SubCategoryController;
@@ -72,6 +73,17 @@ Route::group(['as'=>'app.','prefix'=>'app','namespace'=>'Backend','middleware'=>
         Route::get('/edit/{id}',[SubCategoryController::class,'edit'])->name('edit');
         Route::put('/update/{id}',[SubCategoryController::class,'update'])->name('update');
         Route::delete('/delete/{id}',[SubCategoryController::class,'destroy'])->name('delete');
+    });
+
+
+    Route::group(['as'=>'color.','prefix'=>'color'],function(){
+
+        Route::get('/index',[ColorController::class,'index'])->name('index');
+        Route::get('/create',[ColorController::class,'create'])->name('create');
+        Route::post('/store',[ColorController::class,'store'])->name('store');
+        Route::get('/edit/{id}',[ColorController::class,'edit'])->name('edit');
+        Route::put('/update/{id}',[ColorController::class,'update'])->name('update');
+        Route::delete('/delete/{id}',[ColorController::class,'destroy'])->name('delete');
     });
 
 });

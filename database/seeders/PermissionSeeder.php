@@ -181,5 +181,47 @@ class PermissionSeeder extends Seeder
             'slug' => 'app.subcategory.delete'
 
         ]);
+
+
+        //Color Module create
+        $colorModule = Module::updateOrCreate([
+            'name'=>'Color Management'
+        ]);
+        
+        //Color module permissions create
+        Permission::updateOrCreate([
+
+            'module_id' => $colorModule->id,
+            'name' => 'Access Color',
+            'slug' => 'app.color.index'
+
+        ]);
+
+
+        Permission::updateOrCreate([
+
+            'module_id' => $colorModule->id,
+            'name' => 'Create Color',
+            'slug' => 'app.color.create'
+
+        ]);
+
+
+        Permission::updateOrCreate([
+
+            'module_id' => $colorModule->id,
+            'name' => 'Edit Color',
+            'slug' => 'app.color.edit'
+
+        ]);
+
+
+        Permission::updateOrCreate([
+
+            'module_id' => $colorModule->id,
+            'name' => 'Delete Color',
+            'slug' => 'app.color.delete'
+
+        ]);
     }
 }
