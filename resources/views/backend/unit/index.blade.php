@@ -98,8 +98,9 @@
                     type    : 'Delete',
                     dataType: 'json',
                 });
+
+                location.reload(true);
             }
-            location.reload(true);
         })
     }
 

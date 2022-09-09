@@ -303,9 +303,51 @@ class PermissionSeeder extends Seeder
 
         Permission::updateOrCreate([
 
-            'module_id' => $sizeModule->id,
+            'module_id' => $uniteModule->id,
             'name' => 'Delete Unit',
             'slug' => 'app.unit.delete'
+
+        ]);
+
+
+        //Product Module create
+        $productModule = Module::updateOrCreate([
+            'name'=>'Product Management'
+        ]);
+        
+        //Product module permissions create
+        Permission::updateOrCreate([
+
+            'module_id' => $productModule->id,
+            'name' => 'Access Product',
+            'slug' => 'app.product.index'
+
+        ]);
+
+
+        Permission::updateOrCreate([
+
+            'module_id' => $productModule->id,
+            'name' => 'Create Product',
+            'slug' => 'app.product.create'
+
+        ]);
+
+
+        Permission::updateOrCreate([
+
+            'module_id' => $productModule->id,
+            'name' => 'Edit Product',
+            'slug' => 'app.product.edit'
+
+        ]);
+
+
+        Permission::updateOrCreate([
+
+            'module_id' => $productModule->id,
+            'name' => 'Delete Product',
+            'slug' => 'app.product.delete'
 
         ]);
     }
