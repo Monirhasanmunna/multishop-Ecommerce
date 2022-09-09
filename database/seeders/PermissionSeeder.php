@@ -265,5 +265,48 @@ class PermissionSeeder extends Seeder
             'slug' => 'app.size.delete'
 
         ]);
+
+
+
+         //Unite Module create
+         $uniteModule = Module::updateOrCreate([
+            'name'=>'Unte Management'
+        ]);
+        
+        //Unite module permissions create
+        Permission::updateOrCreate([
+
+            'module_id' => $uniteModule->id,
+            'name' => 'Access Unit',
+            'slug' => 'app.unit.index'
+
+        ]);
+
+
+        Permission::updateOrCreate([
+
+            'module_id' => $uniteModule->id,
+            'name' => 'Create Unit',
+            'slug' => 'app.unit.create'
+
+        ]);
+
+
+        Permission::updateOrCreate([
+
+            'module_id' => $uniteModule->id,
+            'name' => 'Edit Unit',
+            'slug' => 'app.unit.edit'
+
+        ]);
+
+
+        Permission::updateOrCreate([
+
+            'module_id' => $sizeModule->id,
+            'name' => 'Delete Unit',
+            'slug' => 'app.unit.delete'
+
+        ]);
     }
 }

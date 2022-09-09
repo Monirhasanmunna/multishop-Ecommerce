@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SizeController;
 use App\Http\Controllers\Backend\SubCategoryController;
+use App\Http\Controllers\Backend\UnitController;
 use App\Http\Controllers\Backend\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -96,6 +97,17 @@ Route::group(['as'=>'app.','prefix'=>'app','namespace'=>'Backend','middleware'=>
         Route::get('/edit/{id}',[SizeController::class,'edit'])->name('edit');
         Route::put('/update/{id}',[SizeController::class,'update'])->name('update');
         Route::delete('/delete/{id}',[SizeController::class,'destroy'])->name('delete');
+    });
+
+
+    Route::group(['as'=>'unit.','prefix'=>'unit'],function(){
+
+        Route::get('/index',[UnitController::class,'index'])->name('index');
+        Route::get('/create',[UnitController::class,'create'])->name('create');
+        Route::post('/store',[UnitController::class,'store'])->name('store');
+        Route::get('/edit/{id}',[UnitController::class,'edit'])->name('edit');
+        Route::put('/update/{id}',[UnitController::class,'update'])->name('update');
+        Route::delete('/delete/{id}',[UnitController::class,'destroy'])->name('delete');
     });
 
 });
