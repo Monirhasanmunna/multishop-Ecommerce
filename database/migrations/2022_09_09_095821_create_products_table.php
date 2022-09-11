@@ -21,8 +21,10 @@ return new class extends Migration
             $table->string('name');
             $table->integer('price');
             $table->integer('offer_price')->nullable();
-            $table->text('description')->nullable();
+            $table->text('about')->nullable();
+            $table->longText('description')->nullable();
             $table->integer('quantity');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ColorController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SizeController;
 use App\Http\Controllers\Backend\SubCategoryController;
@@ -108,6 +109,20 @@ Route::group(['as'=>'app.','prefix'=>'app','namespace'=>'Backend','middleware'=>
         Route::get('/edit/{id}',[UnitController::class,'edit'])->name('edit');
         Route::put('/update/{id}',[UnitController::class,'update'])->name('update');
         Route::delete('/delete/{id}',[UnitController::class,'destroy'])->name('delete');
+    });
+
+
+    Route::group(['as'=>'product.','prefix'=>'product'],function(){
+
+        Route::get('/index',[ProductController::class,'index'])->name('index');
+        Route::get('/create',[ProductController::class,'create'])->name('create');
+        Route::post('/store',[ProductController::class,'store'])->name('store');
+        Route::get('/edit/{id}',[ProductController::class,'edit'])->name('edit');
+        Route::put('/update/{id}',[ProductController::class,'update'])->name('update');
+        Route::delete('/delete/{id}',[ProductController::class,'destroy'])->name('delete');
+        
+        //Ajax Route
+        Route::get('/select/subcategory/{id}',[ProductController::class,'subcategoryById'])->name('selectSubCat');
     });
 
 });

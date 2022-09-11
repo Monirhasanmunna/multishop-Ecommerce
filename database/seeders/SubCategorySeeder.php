@@ -28,15 +28,41 @@ class SubCategorySeeder extends Seeder
         ]);
 
         SubCategory::updateOrcreate([
-            'category_id'   => 2,
+            'category_id'   => 1,
+            'name'      => 'Tv',
+            'slug'      => 'tv'
+        ]);
+
+        SubCategory::updateOrcreate([
+            'category_id'   => 1,
+            'name'      => 'Freeg',
+            'slug'      => 'freeg'
+        ]);
+
+        SubCategory::updateOrcreate([
+            'category_id'   => 1,
             'name'      => 'Fan',
             'slug'      => 'fan'
         ]);
+
+        
 
         SubCategory::updateOrcreate([
             'category_id'   => 3,
             'name'      => 'Bat',
             'slug'      => 'bat'
+        ]);
+
+        SubCategory::updateOrcreate([
+            'category_id'   => 3,
+            'name'      => 'Ball',
+            'slug'      => 'ball'
+        ]);
+
+        SubCategory::updateOrcreate([
+            'category_id'   => 3,
+            'name'      => 'Pad',
+            'slug'      => 'pad'
         ]);
     }
 }

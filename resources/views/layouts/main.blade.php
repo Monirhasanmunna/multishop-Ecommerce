@@ -18,16 +18,8 @@
   <link href="{{ asset('css/iziToast.css') }}" rel="stylesheet">
   <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
-  @yield('css')
 
-<style>
-    .select2-container{
-        width: 100%!important;
-        }
-        .select2-search--dropdown .select2-search__field {
-        width: 98%;
-    }
-</style>
+  @yield('css')
 </head>
 
 <body id="page-top">
@@ -66,18 +58,20 @@
   <script src="{{asset('backend/js/ruang-admin.min.js')}}"></script>
   <script src="{{asset('backend/vendor/chart.js/Chart.min.js')}}"></script>
   <script src="{{asset('backend/js/demo/chart-area-demo.js')}}"></script> 
+  <script src="{{asset('backend/vendor/select2/dist/js/select2.min.js')}}"></script>
   <!-- Page level plugins -->
   <script src="{{asset('backend/vendor/datatables/jquery.dataTables.min.js')}}"></script>
   <script src="{{asset('backend/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script> 
   <script src="{{ asset('js/iziToast.js') }}"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+
   @include('vendor.lara-izitoast.toast')
   <script>
     $(document).ready(function () {
      // $('#dataTable').DataTable(); // ID From dataTable 
       $('#dataTableHover').DataTable(); // ID From dataTable with Hover
-    });
 
     $(function() {
       $('#toggle-two').bootstrapToggle({
@@ -85,7 +79,9 @@
         off: 'Disabled'
       });
     });
-  </script>
+  });
+    
+</script>
 
   @yield('js')
 </body>
