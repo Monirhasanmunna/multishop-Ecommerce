@@ -6,6 +6,12 @@
 <link rel="stylesheet" href="{{asset('backend/dist/image-uploader.min.css')}}">
 <!--Material Design Iconic Font-->
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<style>
+    .dropify-wrapper {
+        height: 100px;
+    }
+</style>
 @endsection
 
 @section('content')
@@ -36,7 +42,7 @@
     <div class="row">
         <div class="col-12">
             <div class="main-card mb-3 card">
-                <form action="{{!isset($product) ? route('app.product.store') : route('app.product.update',$product->id)}}" method="POST" enctype="multipart/form-data">
+                <form id='formData' action="{{!isset($product) ? route('app.product.store') : route('app.product.update',$product->id)}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @if (isset($product))
                         @method('PUT')
@@ -57,14 +63,23 @@
 
                                 <div class="form-group">
                                     <label style="color: #626262;" for="about"><strong>About :</strong></label>
-                                    <textarea class="form-control" rows="6" id="about" name="about">{{isset($product) ? $product->about : old('about')}}</textarea>
+                                    <textarea class="form-control" rows="5" id="about" name="about">{{isset($product) ? $product->about : old('about')}}</textarea>
                                     <small>Description should be less then 500 words.</small>
                                 </div>
 
                                 <div class="form-group">
                                     <label style="color: #626262;" for="description"><strong>Description :</strong></label>
-                                    <textarea class="form-control" rows="6" id="description" name="description">{{isset($product) ? $product->description : old('description')}}</textarea>
+                                    <textarea class="form-control" rows="5" id="description" name="description">{{isset($product) ? $product->description : old('description')}}</textarea>
                                     <small>Description should be less then 500 words.</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label style="color: #626262;" for="image"><strong>Image :</strong></label>
+                                    <input id="image" name="image[]" class="form-control" type="file" multiple  class="@error('image') is-invalid @enderror">
+                                    <div class="pt-2" id="preview"></div>
+                                    @error('image')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -74,29 +89,101 @@
 
                                 <div class="form-group">
                                     <label for="category">Category</label>
-                                    <select class="form-control" id="category" name="category">
-                                        <option value="#" disabled selected hidden>Select</option>
+                                    <select class="form-control" id="category" name="category" class="@error('category') is-invalid @enderror">
+                                        <option value="#" disabled selected hidden>Select One</option>
                                         @foreach ($categories as $category)
                                           <option value="{{$category->id}}">{{$category->name}}</option>  
                                         @endforeach
                                     </select>
+                                    @error('category')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
 
                                 <div class="form-group">
                                     <label for="subcategory">Sub Category</label>
-                                    <select class="form-control" id="subcategory">
-                                       
+                                    <select class="form-control" name="subcategory" id="subcategory" class="@error('subcategory') is-invalid @enderror">
+                                       {{-- data come from ajax --}}
+                                    </select>
+                                    @error('subcategory')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="unit">Unit</label>
+                                    <select class="form-control" id="unit" name="unit">
+                                        <option value="#" disabled selected hidden>Select One</option>
+                                        @foreach ($units as $unit)
+                                          <option value="{{$unit->id}}">{{$unit->name}}</option>  
+                                        @endforeach
                                     </select>
                                 </div>
 
+                                <div class="form-group">
+                                    <label style="color: #626262;" for="price"><strong>Price :</strong></label>
+                                    <input class="form-control" id="price" name="price" value="{{isset($product) ? $product->price : old('price')}}" type="number"
+                                    class="@error('price') is-invalid @enderror">
 
-                                <div class="input-field">
-                                    <label class="active">Photos</label>
-                                    <div class="input-images"></div>
+                                    @error('price')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
+                                <div class="form-group">
+                                    <label style="color: #626262;" for="offer_price"><strong>Offer Price :</strong></label>
+                                    <input class="form-control" id="offer_price" name="offer_price" value="{{isset($product) ? $product->offer_price : old('offer_price')}}" type="number"
+                                    class="@error('offer_price') is-invalid @enderror">
 
+                                    @error('offer_price')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="pr-1">Size <strong>:</strong></label>
+                                    @foreach ($sizes as $size)
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="checkbox"  name="size[]" class="form-check-input" value="{{$size->id}}"
+                                                class="@error('size') is-invalid @enderror">{{$size->name}}
+                                            </label>
+
+                                            @error('size')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    @endforeach
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="pr-1">Color <strong>:</strong></label>
+                                    @foreach ($colors as $color)
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="checkbox"  name="color[]" class="form-check-input" value="{{$color->id}}"
+                                                class="@error('color') is-invalid @enderror">{{$color->name}}
+                                            </label>
+
+                                            @error('color')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    @endforeach
+                                </div>
+
+                                <div class="form-group">
+                                    <label style="color: #626262;" for="qty"><strong>Quantity :</strong></label>
+                                    <input class="form-control" id="qty" name="quantity" value="{{isset($product) ? $product->quantity : old('quantity')}}" type="number"
+                                    class="@error('quantity') is-invalid @enderror">
+
+                                    @error('quantity')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                            
                                 <div class="form-group">
                                     <div class="custom-control custom-switch">
                                         <input type="checkbox" name="status" class="custom-control-input" @if(isset($product)) {{$product->status == 1 ? 'checked' : ''}} @endif id="customSwitch1">
@@ -109,7 +196,7 @@
                                 @if (isset($product))
                                     <button type="submit" class="btn btn-primary">Update</button> 
                                 @else
-                                   <button type="submit" class="btn btn-primary">Create New</button> 
+                                   <button  type="submit" class="btn btn-primary">Create New</button> 
                                 @endif
                                 
                             </div>
@@ -124,18 +211,43 @@
 @endsection
 
 @section('js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js" integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<!-- Image Uploader Js -->
-<script type="text/javascript" src="{{asset('backend/dist/image-uploader.min.js')}}"></script>
-    <script>
-        // In your Javascript (external .js resource or <script> tag)
-        $(document).ready(function() {
-            $('.dropify').dropify();
-        });
+{{-- Javascript Image Preview Start Here--}}
+<script>
+    function previewImages() {
 
-        $('.input-images').imageUploader();
+        var preview = document.querySelector('#preview');
 
+        if (this.files) {
+        [].forEach.call(this.files, readAndPreview);
+        }
+
+        function readAndPreview(file) {
+
+        // Make sure `file.name` matches our extensions criteria
+        if (!/\.(jpe?g|png)$/i.test(file.name)) {
+            return alert(file.name + " is not an image");
+        } // else...
         
+        var reader = new FileReader();
+        
+        reader.addEventListener("load", function() {
+            var image = new Image();
+            image.height = 100;
+            image.title  = file.name;
+            image.src    = this.result;
+            preview.appendChild(image);
+        });
+        
+        reader.readAsDataURL(file);
+        
+        }
+    }
+
+    document.querySelector('#image').addEventListener("change", previewImages);
+
+</script>
+{{-- Javascript Image Preview Ends Here--}}
+    <script>
         $("#category").on('change',function(){
             $("#subcategory").html('');
             var category_id = $(this).val();
@@ -156,10 +268,5 @@
             });
         });
 
-        $("#subcategory").on('change',function(){
-            var subcat =  $(this).val();
-            console.log(subcat);
-        });
-       
 </script>
 @endsection

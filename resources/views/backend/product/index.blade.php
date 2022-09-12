@@ -36,12 +36,13 @@
                                             <th class="sorting_asc" tabindex="0" aria-controls="dataTableHover"rowspan="1" colspan="1" aria-sort="ascending"aria-label="Name: activate to sort column descending">SL</th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Position: activate to sort column ascending">Image</th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Office: activate to sort column ascending">Name</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Office: activate to sort column ascending">Unit</th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Age: activate to sort column ascending">Category</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Age: activate to sort column ascending">Sub Categories</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Age: activate to sort column ascending">Subcat</th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Age: activate to sort column ascending">Price</th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Age: activate to sort column ascending">Offer Price</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Age: activate to sort column ascending">Quantity</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Age: activate to sort column ascending">Color</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Age: activate to sort column ascending">Size</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Age: activate to sort column ascending">Qty</th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Age: activate to sort column ascending">Status</th>
                                             <th class="sorting " tabindex="0" aria-controls="dataTableHover" rowspan="1"colspan="1" aria-label="Salary: activate to sort column ascending">Action</th>
                                         </tr>
@@ -50,18 +51,37 @@
                                       @foreach ($products as $key=>$product)
                                         <tr role="row" class="odd text-center">
                                             <td class="sorting_1">{{$key+1}}</td>
-                                            <td><img class="image" src="{{isset($product->image)? asset($product->image) : asset('storage/defualt/default.png')}}" alt="{{$product->image}}" srcset=""></td>
+                                            <td>
+                                                {{-- @foreach ($product->images as $images)
+                                                    <img class="image" src="{{asset($images->image)}}" alt="" srcset=""></td>
+                                                @endforeach --}}
                                             <td>{{$product->name}}</td>
-                                            <td>{{$product->unit->name}}</td>
                                             <td>{{$product->category->name}}</td>
                                             <td>{{$product->subcategory->name}}</td>
                                             <td>{{$product->price}}</td>
                                             <td>{{$product->offer_price}}</td>
-                                            <td>{{$product->quantity}}</td>
-                                            <td>status</td>
                                             <td>
-                                                <a class="btn-sm btn-primary" href="{{Route('app.product.edit',$product->id)}}"><i class="fa fa-pen-to-square"></i></a>
-                                                <a class="btn-sm btn-danger" href="javaScript::void(0)" onclick="deleteUser({{$product->id}})"><i class="fa-solid fa-trash"></i></a> 
+                                                @foreach ($product->colors as $items)
+                                                    <span class="badge badge-primary">{{$items->name}}</span>  
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                @foreach ($product->sizes as $items)
+                                                    <span class="badge badge-primary">{{$items->name}}</span>
+                                                @endforeach
+                                            </td> 
+                                            <td>{{$product->quantity}}</td>
+                                            <td>
+                                                @if ($product->status == true)
+                                                    <span class="badge badge-primary">Publish</span>  
+                                                @else
+                                                    <span class="badge badge-danger">Un Publish</span>  
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <a data-toggle="tooltip" data-placement="left" title="show" class="text-info" href="{{Route('app.product.show',$product->id)}}"><i class="fa-solid fa-eye"></i></a>
+                                                <a data-toggle="tooltip" data-placement="left" title="edit" class="text-primary" href="{{Route('app.product.edit',$product->id)}}"><i class=" fa fa-pen-to-square"></i></a>
+                                                <a data-toggle="tooltip" data-placement="left" title="delete" class="text-danger" href="javaScript::void(0)" onclick="deleteUser({{$product->id}})"><i class="fa-solid fa-trash"></i></a> 
                                             </td>
                                         </tr>
                                       @endforeach
@@ -81,7 +101,17 @@
 @endsection
 
 @section('js')
-    
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable({
+                scrollX: true,
+            });
+        });
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 <script>
     $.ajaxSetup({
         headers: {

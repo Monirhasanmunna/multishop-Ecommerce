@@ -4,10 +4,15 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Color;
+use App\Models\Image;
 use App\Models\Product;
+use App\Models\Size;
 use App\Models\SubCategory;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -33,7 +38,10 @@ class ProductController extends Controller
         Gate::authorize('app.product.create');
         $categories = Category::all();
         $subcategories = SubCategory::all();
-        return view('backend.product.create',compact('categories','subcategories'));
+        $colors  = Color::all();
+        $units = Unit::all();
+        $sizes  = Size::all();
+        return view('backend.product.create',compact('categories','subcategories','colors','units','sizes'));
     }
 
     /**
@@ -44,7 +52,55 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $request->validate([
+            'name'          => 'required|max:100',
+            'about'         => 'required|max:500',
+            'description'   => 'required|max:2000',
+            'category'      => 'required',
+            'subcategory'   => 'required',
+            'unit'          => 'required',
+            'color'         => 'required',
+            'quantity'      => 'required',
+            'image'         => 'required',
+            'price'         => 'required',
+            'offer_price'   => 'sometimes',
+            'size'          => 'sometimes',
+            'status'        => 'sometimes'
+        ]);
+
+        
+        $product = Product::create([
+            'name'              => $request->name,
+            'about'             => $request->about,
+            'description'       => $request->description,
+            'category_id'       => $request->category,
+            'subcategory_id'    => $request->subcategory,
+            'unit_id'           => $request->unit,
+            'quantity'          => $request->quantity,
+            'price'             => $request->price,
+            'offer_price'       => $request->offer_price,
+            'status'            => $request->filled('status')
+        ]);
+
+        $product->colors()->sync($request->input('color'));
+        $product->sizes()->sync($request->input('size'));
+
+
+        foreach ($request->file('image') as $file) {
+
+            $imgName = time().$file->getClientOriginalName();
+                $file->move('uploads/products/subImages',$imgName);
+                $subimage['sub_image'] = $imgName;
+
+                $subimage = new Image();
+                $subimage->product_id = $product->id;
+                $subimage->image =  'uploads/products/subImages/'.$imgName;
+                $subimage->save();
+        }
+        
+        notify()->success("Product Created");
+        return redirect()->route('app.product.index');
     }
 
     /**
