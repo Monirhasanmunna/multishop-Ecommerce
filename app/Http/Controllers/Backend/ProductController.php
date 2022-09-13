@@ -124,12 +124,12 @@ class ProductController extends Controller
     {
         Gate::authorize('app.product.edit');
         $product = Product::findOrfail($id);
+        $subCategoryByProdact = SubCategory::where('category_id',$product->category_id)->get();
         $categories = Category::all();
-        $subcategories = SubCategory::all();
         $colors  = Color::all();
         $units = Unit::all();
         $sizes  = Size::all();
-        return view('backend.product.create',compact('product','categories','subcategories','colors','units','sizes'));
+        return view('backend.product.create',compact('product','categories','subCategoryByProdact','colors','units','sizes'));
     }
 
     /**
@@ -141,7 +141,68 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'          => 'required|max:100',
+            'about'         => 'required|max:500',
+            'description'   => 'required|max:2000',
+            'category'      => 'required',
+            'subcategory'   => 'required',
+            'unit'          => 'required',
+            'color'         => 'required',
+            'quantity'      => 'required',
+            'image'         => 'sometimes',
+            'price'         => 'required',
+            'offer_price'   => 'sometimes',
+            'size'          => 'sometimes',
+            'status'        => 'sometimes'
+        ]);
+
+        $product = Product::findOrfail($id);
+        $product->update([
+            'name'              => $request->name,
+            'about'             => $request->about,
+            'description'       => $request->description,
+            'category_id'       => $request->category,
+            'subcategory_id'    => $request->subcategory,
+            'unit_id'           => $request->unit,
+            'quantity'          => $request->quantity,
+            'price'             => $request->price,
+            'offer_price'       => $request->offer_price,
+            'status'            => $request->filled('status')
+        ]);
+
+
+        $product->colors()->sync($request->input('color'));
+        $product->sizes()->sync($request->input('size'));
+
+
+        //delete old pic
+        if($request->file('image')){
+            foreach($product->images as $productImage){
+                if(file_exists($productImage->image) && $productImage->image != ''){
+                    unlink($productImage->image);
+                    Image::where('product_id',$product->id)->delete();
+                }
+            }
+        }
+
+        if($request->file('image')){
+            foreach ($request->file('image') as $file) {
+
+                    $imgName = time().$file->getClientOriginalName();
+                    $file->move('uploads/products/subImages',$imgName);
+                    $subimage['sub_image'] = $imgName;
+
+                    $subimage = new Image();
+                    $subimage->product_id = $product->id;
+                    $subimage->image =  'uploads/products/subImages/'.$imgName;
+                    $subimage->save();
+            }
+        }
+        
+        
+        notify()->success("Product Update");
+        return redirect()->route('app.product.index');
     }
 
     /**

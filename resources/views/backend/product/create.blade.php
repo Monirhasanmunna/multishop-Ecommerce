@@ -118,8 +118,8 @@
                                     <label for="subcategory">Sub Category</label>
                                     <select class="form-control" name="subcategory" id="subcategory" class="@error('subcategory') is-invalid @enderror">
                                         @if(isset($product))
-                                        @foreach ($subcategories as $subcategory)
-                                            <option {{$product->subcategory_id == $subcategory->id ? 'selected' : 'hidden'}} value="{{$subcategory->id}}">{{$subcategory->name}}</option>
+                                        @foreach ($subCategoryByProdact as $subcategory)
+                                            <option {{$product->subcategory_id == $subcategory->id ? 'selected' : ''}} value="{{$subcategory->id}}">{{$subcategory->name}}</option>
                                         @endforeach  
                                         @endif
                                        {{-- data come from ajax --}}
