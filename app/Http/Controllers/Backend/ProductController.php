@@ -122,7 +122,14 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        Gate::authorize('app.product.edit');
+        $product = Product::findOrfail($id);
+        $categories = Category::all();
+        $subcategories = SubCategory::all();
+        $colors  = Color::all();
+        $units = Unit::all();
+        $sizes  = Size::all();
+        return view('backend.product.create',compact('product','categories','subcategories','colors','units','sizes'));
     }
 
     /**

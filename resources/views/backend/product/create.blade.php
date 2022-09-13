@@ -77,6 +77,15 @@
                                     <label style="color: #626262;" for="image"><strong>Image :</strong></label>
                                     <input id="image" name="image[]" class="form-control" type="file" multiple  class="@error('image') is-invalid @enderror">
                                     <div class="pt-2" id="preview"></div>
+                                    @if (isset($product))
+                                    <div class="pt-2">
+                                        <h6>Old Images :</h6>
+                                        @foreach ($product->images as $image)
+                                            <img style="width: 120px;height:120px;" src="{{asset($image->image)}}" alt="{{$image->image}}">
+                                        @endforeach
+                                        
+                                    </div>
+                                    @endif
                                     @error('image')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -92,7 +101,11 @@
                                     <select class="form-control" id="category" name="category" class="@error('category') is-invalid @enderror">
                                         <option value="#" disabled selected hidden>Select One</option>
                                         @foreach ($categories as $category)
-                                          <option value="{{$category->id}}">{{$category->name}}</option>  
+                                          <option value="{{$category->id}}"
+                                            @if (isset($product))
+                                                {{$product->category_id == $category->id ? 'selected' : ''}}
+                                            @endif
+                                            >{{$category->name}}</option>  
                                         @endforeach
                                     </select>
                                     @error('category')
@@ -104,6 +117,11 @@
                                 <div class="form-group">
                                     <label for="subcategory">Sub Category</label>
                                     <select class="form-control" name="subcategory" id="subcategory" class="@error('subcategory') is-invalid @enderror">
+                                        @if(isset($product))
+                                        @foreach ($subcategories as $subcategory)
+                                            <option {{$product->subcategory_id == $subcategory->id ? 'selected' : 'hidden'}} value="{{$subcategory->id}}">{{$subcategory->name}}</option>
+                                        @endforeach  
+                                        @endif
                                        {{-- data come from ajax --}}
                                     </select>
                                     @error('subcategory')
@@ -116,7 +134,11 @@
                                     <select class="form-control" id="unit" name="unit">
                                         <option value="#" disabled selected hidden>Select One</option>
                                         @foreach ($units as $unit)
-                                          <option value="{{$unit->id}}">{{$unit->name}}</option>  
+                                          <option value="{{$unit->id}}"
+                                            @if (isset($product))
+                                                {{$product->unit_id == $unit->id ? 'selected' : ''}}
+                                            @endif
+                                            >{{$unit->name}}</option>  
                                         @endforeach
                                     </select>
                                 </div>
@@ -147,7 +169,13 @@
                                         <div class="form-check form-check-inline">
                                             <label class="form-check-label">
                                                 <input type="checkbox"  name="size[]" class="form-check-input" value="{{$size->id}}"
-                                                class="@error('size') is-invalid @enderror">{{$size->name}}
+                                                class="@error('size') is-invalid @enderror"
+                                                @if (isset($product))
+                                                @foreach ($product->sizes as $productSize)
+                                                    {{$productSize->id == $size->id ? 'checked' : ''}}
+                                                @endforeach
+                                                @endif
+                                                >{{$size->name}}
                                             </label>
 
                                             @error('size')
@@ -163,7 +191,13 @@
                                         <div class="form-check form-check-inline">
                                             <label class="form-check-label">
                                                 <input type="checkbox"  name="color[]" class="form-check-input" value="{{$color->id}}"
-                                                class="@error('color') is-invalid @enderror">{{$color->name}}
+                                                class="@error('color') is-invalid @enderror"
+                                                @if (isset($product))
+                                                    @foreach ($product->colors as $productColor)
+                                                        {{$productColor->id == $color->id ? 'checked' : ''}}
+                                                    @endforeach
+                                                @endif
+                                                >{{$color->name}}
                                             </label>
 
                                             @error('color')
@@ -186,7 +220,7 @@
                             
                                 <div class="form-group">
                                     <div class="custom-control custom-switch">
-                                        <input type="checkbox" name="status" class="custom-control-input" @if(isset($product)) {{$product->status == 1 ? 'checked' : ''}} @endif id="customSwitch1">
+                                        <input type="checkbox" name="status" class="custom-control-input" @if(isset($product)) {{$product->status == true ? 'checked' : ''}} @endif id="customSwitch1">
                                         <label class="custom-control-label" for="customSwitch1">Status</label>
                                     </div>
                                 </div>
