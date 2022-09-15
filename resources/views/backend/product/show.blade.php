@@ -29,12 +29,12 @@
             </div>
         <div class="main-card card">
             <div class="row p-xl-4">
-                <div class="col-lg-5 mb-30">
+                <div class="col-lg-5 mb-10">
                     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
                             @foreach ($product->images as $productImage)
                               <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                                <img class="d-block w-100" src="{{asset($productImage->image)}}" alt="{{$productImage->image}}">
+                                <img style="height:500px;" class="d-block w-100" src="{{asset($productImage->image)}}" alt="{{$productImage->image}}">
                               </div>  
                             @endforeach
                         </div>
@@ -49,44 +49,49 @@
                       </div>
                 </div>
     
-                <div class="col-lg-7 h-auto mb-30">
+                <div class="col-lg-7 h-auto mb-10">
                     <div class="h-100 bg-light p-30">
                         <h3>{{$product->name}}</h3>
                         <div class="d-flex mb-1 mt-4">
                             <strong class="text-dark mr-3">Price:</strong>
-                                <div class="d-inline">
-                                    <p class="h3"><strong>${{$product->price}}</strong></p>
-                                </div>
+                            <div class="d-inline">
+                                <p class="h3"><strong>${{$product->price}}</strong></p>
+                            </div>
                         </div>
 
                         <div class="d-flex mb-1">
                             <strong class="text-dark mr-3">Offer Price:</strong>
-                                <div class="d-inline">
-                                    @if (isset($product->offer_price))
-                                      <p ><strong>${{$product->offer_price}}</strong></p>
-                                    @else
-                                    <p><strong>N/A</strong></p>
-                                    @endif
-                                    
-                                </div>
+                            <div class="d-inline">
+                                @if (isset($product->offer_price))
+                                    <p ><strong>${{$product->offer_price}}</strong></p>
+                                @else
+                                <p><strong>N/A</strong></p>
+                                @endif    
+                            </div>
                         </div>
 
-                        <p class="mb-4">{{$product->about}}</p>
+                        <div class="mb-1">
+                            <strong class="text-dark mr-3">About:</strong>
+                                <div>
+                                    <p>{{$product->about}}</p>
+                                </div>
+                            </div>
 
                         <div class="d-flex mb-1">
-                            <strong class="text-dark mr-3">Category:</strong>
-                                <div class="d-inline">
-                                    <p>{{$product->category->name}}</p>
-                                </div>
+                        <strong class="text-dark mr-3">Category:</strong>
+                            <div class="d-inline">
+                                <p>{{$product->category->name}}</p>
+                            </div>
                         </div>
 
                         <div class="d-flex mb-1">
-                            <strong class="text-dark mr-3">Sub Category:</strong>
-                                <div class="d-inline">
-                                    <p>{{$product->subcategory->name}}</p>
-                                </div>
+                        <strong class="text-dark mr-3">Sub Category:</strong>
+                            <div class="d-inline">
+                                <p>{{$product->subcategory->name}}</p>
+                            </div>
                         </div>
 
+                        
                         <div class="d-flex mb-1">
                             <strong class="text-dark mr-3">Size:</strong>
                             @foreach ($product->sizes as $productSize)
@@ -95,6 +100,7 @@
                                 </div>
                             @endforeach
                         </div>
+
                         <div class="d-flex mb-1">
                             <strong class="text-dark mr-3">Colors:</strong>
                             @foreach ($product->colors as $productColor)
@@ -110,13 +116,13 @@
                             </div>
                         </div>
 
-                        <div class="d-flex mb-4">
+                        <div class="d-flex">
                             <strong class="text-dark mr-3">Status:</strong>
                             <div class="d-inline">
                                 @if ($product->status == true)
                                     <h5><span class="badge badge-primary">Active</span></h5>
                                 @else
-                                    <h5><span class="badge badge-info">Deactive</span></h5>
+                                    <h5><span class="badge badge-danger">Deactive</span></h5>
                                 @endif
                             </div>
                         </div>

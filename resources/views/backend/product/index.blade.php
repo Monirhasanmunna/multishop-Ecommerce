@@ -52,9 +52,12 @@
                                         <tr role="row" class="odd text-center">
                                             <td class="sorting_1">{{$key+1}}</td>
                                             <td>
-                                                {{-- @foreach ($product->images as $images)
-                                                    <img class="image" src="{{asset($images->image)}}" alt="" srcset=""></td>
-                                                @endforeach --}}
+                                                @foreach ($product->images as $images)
+                                                    @if ($loop->first)
+                                                        <img class="image" src="{{asset($images->image)}}" alt="" srcset="">   
+                                                    @endif
+                                                @endforeach
+                                            </td>
                                             <td>{{$product->name}}</td>
                                             <td>{{$product->category->name}}</td>
                                             <td>{{$product->subcategory->name}}</td>
