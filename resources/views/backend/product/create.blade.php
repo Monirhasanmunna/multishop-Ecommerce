@@ -63,14 +63,20 @@
 
                                 <div class="form-group">
                                     <label style="color: #626262;" for="about"><strong>About :</strong></label>
-                                    <textarea class="form-control" rows="5" id="about" name="about">{{isset($product) ? $product->about : old('about')}}</textarea>
-                                    <small>Description should be less then 500 words.</small>
+                                    <textarea class="form-control" rows="5" id="about" name="about" class="@error('about') is-invalid @enderror">{{isset($product) ? $product->about : old('about')}}</textarea>
+                                    <small>Description should be less then 500 words.<br></small>
+                                    @error('about')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="form-group">
                                     <label style="color: #626262;" for="description"><strong>Description :</strong></label>
-                                    <textarea class="form-control" rows="5" id="description" name="description">{{isset($product) ? $product->description : old('description')}}</textarea>
-                                    <small>Description should be less then 500 words.</small>
+                                    <textarea class="form-control" rows="5" id="description" name="description" class="@error('description') is-invalid @enderror">{{isset($product) ? $product->description : old('description')}}</textarea>
+                                    <small>Description should be less then 500 words.<br></small>
+                                    @error('description')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="form-group">
@@ -118,9 +124,11 @@
                                     <label for="subcategory">Sub Category</label>
                                     <select class="form-control" name="subcategory" id="subcategory" class="@error('subcategory') is-invalid @enderror">
                                         @if(isset($product))
-                                        @foreach ($subCategoryByProdact as $subcategory)
-                                            <option {{$product->subcategory_id == $subcategory->id ? 'selected' : ''}} value="{{$subcategory->id}}">{{$subcategory->name}}</option>
-                                        @endforeach  
+                                            @foreach ($subCategoryByProdact as $subcategory)
+                                                <option {{$product->subcategory_id == $subcategory->id ? 'selected' : ''}} value="{{$subcategory->id}}">{{$subcategory->name}}</option>
+                                            @endforeach 
+                                        @else
+                                            <option disabled hidden selected>Category Select First</option>
                                         @endif
                                        {{-- data come from ajax --}}
                                     </select>
@@ -131,7 +139,7 @@
 
                                 <div class="form-group">
                                     <label for="unit">Unit</label>
-                                    <select class="form-control" id="unit" name="unit">
+                                    <select class="form-control" id="unit" name="unit" class="@error('unit') is-invalid @enderror">
                                         <option value="#" disabled selected hidden>Select One</option>
                                         @foreach ($units as $unit)
                                           <option value="{{$unit->id}}"
@@ -141,6 +149,9 @@
                                             >{{$unit->name}}</option>  
                                         @endforeach
                                     </select>
+                                    @error('unit')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="form-group">
@@ -177,12 +188,11 @@
                                                 @endif
                                                 >{{$size->name}}
                                             </label>
-
-                                            @error('size')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
                                         </div>
                                     @endforeach
+                                    @error('size')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="form-group">
@@ -199,12 +209,11 @@
                                                 @endif
                                                 >{{$color->name}}
                                             </label>
-
-                                            @error('color')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
                                         </div>
                                     @endforeach
+                                    @error('color')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="form-group">
@@ -292,11 +301,14 @@
                 dataType    : 'json',
                 success     : function(response){
                     $.each(response,function(k,v){
-                        var html = `
-                        <option disable hidden selected>select one</option>
-                        <option value='${v.id}'>${v.name}</option>
-                        `;
-                        $("#subcategory").append(html);
+                        if(v != ''){
+                           var html = `
+                            <option disable hidden selected>select one</option>
+                            <option value='${v.id}'>${v.name}</option>
+                            `;
+                            $("#subcategory").append(html); 
+                        }
+                        
                     });
                 },
             });

@@ -90,12 +90,12 @@ class ProductController extends Controller
         foreach ($request->file('image') as $file) {
 
             $imgName = time().$file->getClientOriginalName();
-                $file->move('uploads/products/subImages',$imgName);
+                $file->move('uploads/products/Images',$imgName);
                 $subimage['sub_image'] = $imgName;
 
                 $subimage = new Image();
                 $subimage->product_id = $product->id;
-                $subimage->image =  'uploads/products/subImages/'.$imgName;
+                $subimage->image =  'uploads/products/Images/'.$imgName;
                 $subimage->save();
         }
         
@@ -111,7 +111,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = Product::findOrfail($id);
+        return view('backend.product.show',compact('product'));
     }
 
     /**
@@ -186,16 +187,17 @@ class ProductController extends Controller
             }
         }
 
+        //upload New pic
         if($request->file('image')){
             foreach ($request->file('image') as $file) {
 
                     $imgName = time().$file->getClientOriginalName();
-                    $file->move('uploads/products/subImages',$imgName);
+                    $file->move('uploads/products/Images',$imgName);
                     $subimage['sub_image'] = $imgName;
 
                     $subimage = new Image();
                     $subimage->product_id = $product->id;
-                    $subimage->image =  'uploads/products/subImages/'.$imgName;
+                    $subimage->image =  'uploads/products/Images/'.$imgName;
                     $subimage->save();
             }
         }
@@ -213,7 +215,16 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Gate::authorize('app.product.delete');
+        $product = Product::findOrfail($id);
+        foreach($product->images as $productImage){
+            if(file_exists($productImage->image) && $productImage->image != ''){
+                unlink($productImage->image);
+            }
+        }
+        $product->delete();
+        notify()->success("Product Deleted");
+        return redirect()->route('app.product.index');
     }
 
 
