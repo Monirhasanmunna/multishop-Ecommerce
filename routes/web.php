@@ -28,8 +28,14 @@ Route::get('/', function () {
 
 require __DIR__.'/auth.php';
 
+//Frontend Routs =================================================================================
+Route::group(['as'=>'multishop.','prefix'=>'multishop','namespace'=>'Frontend'],function(){
 
+    
 
+});
+
+//Backend Admin Panel Routs =================================================================================
 Route::group(['as'=>'app.','prefix'=>'app','namespace'=>'Backend','middleware'=>['auth','web']],function(){
 
     Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');

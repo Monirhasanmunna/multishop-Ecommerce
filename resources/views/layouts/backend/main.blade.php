@@ -25,12 +25,12 @@
 <body id="page-top">
   <div id="wrapper">
 
-    @include('layouts.partial.backend.sidebar')
+    @include('layouts.backend.partial.sidebar')
 
     <div id="content-wrapper" class="d-flex flex-column">
       <div id="content">
         
-      @include('layouts.partial.backend.topbar')
+      @include('layouts.backend.partial.topbar')
 
         @yield('content')
       </div>

@@ -1,5 +1,5 @@
 
-@extends('layouts.main')
+@extends('layouts.backend.main')
 
 @section('content')
     <!-- Container Fluid-->
