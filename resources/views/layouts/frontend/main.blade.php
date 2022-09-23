@@ -17,7 +17,7 @@
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-
+    <link href="{{ asset('css/iziToast.css') }}" rel="stylesheet">
     <!-- Libraries Stylesheet -->
     <link href="{{asset('frontend/lib/animate/animate.min.css')}}" rel="stylesheet">
     <link href="{{asset('frontend/lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
@@ -53,13 +53,15 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="{{asset('frontend/lib/easing/easing.min.js')}}"></script>
     <script src="{{asset('frontend/lib/owlcarousel/owl.carousel.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
     <!-- Contact Javascript File -->
     <script src="{{asset('frontend/mail/jqBootstrapValidation.min.js')}}"></script>
     <script src="{{asset('frontend/mail/contact.js')}}"></script>
+    <script src="{{ asset('js/iziToast.js') }}"></script>
 
     <!-- Template Javascript -->
     <script src="{{asset('frontend/js/main.js')}}"></script>
+    @yield('js')
 </body>
-
 </html>

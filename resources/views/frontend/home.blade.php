@@ -391,7 +391,7 @@
                             @endif
                         @endforeach
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" onclick="addCart({{$product->id}})" href="javascript:void(0)"><i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
@@ -453,5 +453,30 @@
         </div>
     </div>
     <!-- Vendor End -->
+@endsection
 
+@section('js')
+    <script>
+       function addCart(id){
+        
+            $.ajax({
+                url     : '/multishop/add_cart/'+id,
+                type    : 'GET',
+                dataType: 'json',
+                success : function(response){
+                    iziToast.success({
+                        position: 'topRight',
+                        message: 'Product Add To Cart',
+                         timeout: 3000,
+
+                    });
+
+                    console.log(response);
+                },
+                erro   : function(error){
+                    console.log(error);
+                }
+            });
+       }
+    </script>
 @endsection

@@ -25,10 +25,6 @@ class HomeController extends Controller
         return view('frontend.shop_details');
     }
 
-    public function cart()
-    {
-        return view('frontend.cart');
-    }
 
     public function checkout()
     {

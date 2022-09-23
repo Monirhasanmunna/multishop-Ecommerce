@@ -9,7 +9,7 @@ use App\Http\Controllers\Backend\SizeController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\UnitController;
 use App\Http\Controllers\Backend\UserController;
-
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,9 +36,12 @@ Route::group(['as'=>'multishop.','prefix'=>'multishop','namespace'=>'Frontend'],
     Route::get('/',[HomeController::class,'home'])->name('home');
     Route::get('/shop',[HomeController::class,'shop'])->name('shop');
     Route::get('/shop/details',[HomeController::class,'shopDetails'])->name('shop.details');
-    Route::get('/cart',[HomeController::class,'cart'])->name('cart');
     Route::get('/checkout',[HomeController::class,'checkout'])->name('checkout');
     Route::get('/contact',[HomeController::class,'contact'])->name('contact');
+
+
+    Route::get('/cart',[CartController::class,'cart'])->name('cart');
+    Route::get('/add_cart/{id}',[CartController::class,'AddToCart'])->name('add.cart');
 
 });
 
