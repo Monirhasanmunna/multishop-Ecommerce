@@ -468,10 +468,7 @@
                         position: 'topRight',
                         message: 'Product Add To Cart',
                          timeout: 3000,
-
                     });
-
-                    console.log(response);
                 },
                 erro   : function(error){
                     console.log(error);

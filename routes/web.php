@@ -42,6 +42,7 @@ Route::group(['as'=>'multishop.','prefix'=>'multishop','namespace'=>'Frontend'],
 
     Route::get('/cart',[CartController::class,'cart'])->name('cart');
     Route::get('/add_cart/{id}',[CartController::class,'AddToCart'])->name('add.cart');
+    Route::get('/delete_cart/{id}',[CartController::class,'DeleteToCart'])->name('delete.cart');
 
 });
 

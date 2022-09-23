@@ -52,9 +52,8 @@
                                             </div>
                                         </div>
                                     </td>
-                                    {{-- <td hidden><input hidden type="number" class="allsum" value="{{$cart['price']}}"></td> --}}
                                     <td class="align-middle">$<span class="sum">{{$cart['price']}}</span></td>
-                                    <td class="align-middle"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
+                                    <td class="align-middle"><button onclick="deleteCart({{$cart['product_id']}})" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
                                 </tr>
                             @endforeach
                         @endif
@@ -99,7 +98,6 @@
 @section('js')
         <script>
             $(document).ready(function(){
-
                 $('.btn-plus').on('click',function(){
                     var price = $(this).closest('tr').find('.price').val();
                     var qty = $(this).parent('div').closest('tr').find('.qty').val();
@@ -140,7 +138,22 @@
                 }
 
                 calculation();
-                
             });
+
+            //Delete Cart Item
+            function deleteCart(id){
+                $.ajax({
+                    url       : '/multishop/delete_cart/'+id,
+                    type      : 'GET',
+                    dataType  : 'json',
+                    success   : function(success){
+                        location.reload(true);
+                    },
+                    error     : function(error){
+                        console.log(error);
+                    },
+                });
+            }
         </script>
+        
 @endsection

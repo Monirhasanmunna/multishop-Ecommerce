@@ -25,7 +25,7 @@ class CartController extends Controller
             $cart[$id]['quantity']++;
         } else {
             $cart[$id]= [
-                "id"   => $product->id,
+                "product_id"   => $id,
                 "name" => $product->name,
                 "quantity" => 1,
                 "price" => $product->price,
@@ -39,5 +39,18 @@ class CartController extends Controller
 
         session()->put('cart', $cart);
         return response()->json($cart);
+    }
+
+    public function DeleteToCart(Request $request ,$id)
+    {
+
+        $cart = session()->get('cart');
+
+        if(isset($cart[$id])){
+            unset($cart[$id]);
+            session()->put('cart',$cart);
+        }
+
+        return response()->json('success');
     }
 }
