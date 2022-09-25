@@ -457,8 +457,8 @@
 
 @section('js')
     <script>
+       
        function addCart(id){
-        
             $.ajax({
                 url     : '/multishop/add_cart/'+id,
                 type    : 'GET',
@@ -469,6 +469,7 @@
                         message: 'Product Add To Cart',
                          timeout: 3000,
                     });
+                    $('.cart').text(response);
                 },
                 erro   : function(error){
                     console.log(error);

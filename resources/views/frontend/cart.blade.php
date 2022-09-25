@@ -146,8 +146,9 @@
                     url       : '/multishop/delete_cart/'+id,
                     type      : 'GET',
                     dataType  : 'json',
-                    success   : function(success){
+                    success   : function(response){
                         location.reload(true);
+                        $('.cart').text(response);
                     },
                     error     : function(error){
                         console.log(error);

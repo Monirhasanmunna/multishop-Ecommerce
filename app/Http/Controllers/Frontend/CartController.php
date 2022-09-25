@@ -12,6 +12,8 @@ class CartController extends Controller
 
     public function cart()
     {
+        $len = count(session()->get('cart'));
+        session()->put('len',$len);
         return view('frontend.cart');
     }
 
@@ -20,6 +22,7 @@ class CartController extends Controller
         $product = Product::findOrfail($id);
         
         $cart = session()->get('cart',[]);
+        
 
         if(isset($cart[$id])) {
             $cart[$id]['quantity']++;
@@ -36,21 +39,22 @@ class CartController extends Controller
                 'sizes' => $product->sizes()->get()
             ];         
         }
-
         session()->put('cart', $cart);
-        return response()->json($cart);
+        $len = count(session()->get('cart'));
+        session()->put('len',$len);
+        return response()->json($len);
     }
 
     public function DeleteToCart(Request $request ,$id)
     {
-
         $cart = session()->get('cart');
-
+        
         if(isset($cart[$id])){
             unset($cart[$id]);
             session()->put('cart',$cart);
+            $len = count(session()->get('cart'));
+            session()->put('len',$len);
         }
-
-        return response()->json('success');
+        return response()->json($len);
     }
 }
